@@ -56,15 +56,17 @@ extern int yydebug;
     AND_OP = 266,
     OR_OP = 267,
     EXTERN = 268,
-    INT = 269,
-    VOID = 270,
-    STRUCT = 271,
-    IF = 272,
-    ELSE = 273,
-    WHILE = 274,
-    FOR = 275,
-    RETURN = 276,
-    COMMENTARY = 277
+    NUMBER = 269,
+    INT = 270,
+    VOID = 271,
+    STRUCT = 272,
+    IF = 273,
+    ELSE = 274,
+    WHILE = 275,
+    FOR = 276,
+    RETURN = 277,
+    COMMENTARY = 278,
+    ENDSENTENCE = 279
   };
 #endif
 /* Tokens.  */
@@ -79,15 +81,17 @@ extern int yydebug;
 #define AND_OP 266
 #define OR_OP 267
 #define EXTERN 268
-#define INT 269
-#define VOID 270
-#define STRUCT 271
-#define IF 272
-#define ELSE 273
-#define WHILE 274
-#define FOR 275
-#define RETURN 276
-#define COMMENTARY 277
+#define NUMBER 269
+#define INT 270
+#define VOID 271
+#define STRUCT 272
+#define IF 273
+#define ELSE 274
+#define WHILE 275
+#define FOR 276
+#define RETURN 277
+#define COMMENTARY 278
+#define ENDSENTENCE 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

@@ -28,7 +28,7 @@ IS                      (u|U|l|L)*
 "struct"                { printf("struct.\n"); return STRUCT; }
 "void"                  { printf("void.\n"); return VOID; }
 "while"                 { printf("while.\n"); return WHILE; }
-
+";"                     { printf("point virgule.\n"); return ENDSENTENCE; }
 {D}*                    { printf("number.\n"); return NUMBER; }
 {L}({L}|{D})*           { printf("identifier.\n"); return IDENTIFIER; }
 0[xX]{H}+{IS}?          { printf("int.\n"); return INT; }

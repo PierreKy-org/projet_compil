@@ -7,6 +7,7 @@
 %token STRUCT 
 %token IF ELSE WHILE FOR RETURN
 %token COMMENTARY
+%token ENDSENTENCE
 %start program
 %%
 
