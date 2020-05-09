@@ -15,6 +15,8 @@ IS                      (u|U|l|L)*
 %}
 
 %%
+\/\*.*\*\/              { printf("Commentaire.\n"); return COMMENTARY; }
+
 "const"                 { printf("const.\n"); return CONSTANT; }
 "else"                  { printf("else.\n"); return ELSE; }
 "extern"                { printf("extern.\n"); return EXTERN; }
@@ -28,7 +30,6 @@ IS                      (u|U|l|L)*
 "while"                 { printf("while.\n"); return WHILE; }
 
 {L}({L}|{D})*           { printf("identifier.\n"); return IDENTIFIER; }
-
 0[xX]{H}+{IS}?          { printf("int.\n"); return INT; }
 "&&"                    { printf("and operation.\n"); return AND_OP; }
 "||"                    { printf("or operation.\n"); return OR_OP; }
@@ -36,7 +37,7 @@ IS                      (u|U|l|L)*
 ">="                    { printf("great equal operation.\n"); return GE_OP;}
 "=="                    { printf("equal operation.\n"); return EQ_OP; }
 "!="                    { printf("not equal operation.\n"); return NE_OP; }
-" "			{ printf("");}
+" "			            { printf("");}
 .                       { printf("Erreur lexicale.\n"); }
 %%
 

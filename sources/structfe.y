@@ -5,7 +5,7 @@
 %token INT VOID
 %token STRUCT 
 %token IF ELSE WHILE FOR RETURN
-
+%token COMMENTARY
 %start program
 %%
 

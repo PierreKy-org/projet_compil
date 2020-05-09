@@ -63,7 +63,8 @@ extern int yydebug;
     ELSE = 273,
     WHILE = 274,
     FOR = 275,
-    RETURN = 276
+    RETURN = 276,
+    COMMENTARY = 277
   };
 #endif
 /* Tokens.  */
@@ -86,6 +87,7 @@ extern int yydebug;
 #define WHILE 274
 #define FOR 275
 #define RETURN 276
+#define COMMENTARY 277
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
