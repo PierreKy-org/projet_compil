@@ -6,39 +6,85 @@ FS                      (f|F|l|L)
 IS                      (u|U|l|L)*
 
 %{
+ 
+#include <stdlib.h>
 #include <stdio.h>
-#include "y.tab.h"
-
-/* Ne gere pas les commentaires. A rajouter */
-/* Supprimer les lignes dont vous n'avez pas besoin. */
-
+#include <stdbool.h>
+void lexeme(void);
+unsigned int lineno=1;
+bool error=false;
+ 
 %}
 
 %%
-\/\*.*\*\/              { printf("Commentaire.\n"); return COMMENTARY; }
+\/\*.*\*\/              { lexeme();} //return COMMENTARY; }
 
-"const"                 { printf("const.\n"); return CONSTANT; }
-"else"                  { printf("else.\n"); return ELSE; }
-"extern"                { printf("extern.\n"); return EXTERN; }
-"for"                   { printf("for.\n"); return FOR; }
-"if"                    { printf("if.\n"); return IF; }
-"int"                   { printf("int.\n"); return INT; }
-"return"                { printf("return.\n"); return RETURN; }
-"sizeof"                { printf("sizeof.\n"); return SIZEOF; }
-"struct"                { printf("struct.\n"); return STRUCT; }
-"void"                  { printf("void.\n"); return VOID; }
-"while"                 { printf("while.\n"); return WHILE; }
-";"                     { printf("point virgule.\n"); return ENDSENTENCE; }
-{D}*                    { printf("number.\n"); return NUMBER; }
-{L}({L}|{D})*           { printf("identifier.\n"); return IDENTIFIER; }
-0[xX]{H}+{IS}?          { printf("int.\n"); return INT; }
-"&&"                    { printf("and operation.\n"); return AND_OP; }
-"||"                    { printf("or operation.\n"); return OR_OP; }
-"<="                    { printf("less equal operation.\n"); return LE_OP; }
-">="                    { printf("great equal operation.\n"); return GE_OP;}
-"=="                    { printf("equal operation.\n"); return EQ_OP; }
-"!="                    { printf("not equal operation.\n"); return NE_OP; }
-" "			            { printf("");}
-.                       { printf("Erreur lexicale.\n"); }
+"const"                 { lexeme(); }//return CONSTANT; }
+"else"                  { lexeme(); }//return ELSE; }
+"extern"                { lexeme(); }//return EXTERN; }
+"for"                   { lexeme(); }//return FOR; }
+"if"                    { lexeme(); }//return IF; }
+"int"                   { lexeme(); }//return INT; }
+"return"                { lexeme(); }//return RETURN; }
+"sizeof"                { lexeme(); }//return SIZEOF; }
+"struct"                { lexeme(); }//return STRUCT; }
+"void"                  { lexeme();}// return VOID; }
+"while"                 { lexeme();} //return WHILE; }
+
+"="             { lexeme(); }//return WHILE; }
+ 
+"+"             { lexeme(); }//return WHILE; }
+ 
+"-"             { lexeme(); }//return WHILE; }
+ 
+"*"             { lexeme(); }//return WHILE; }
+ 
+"/"             { lexeme();}//return WHILE; }
+ 
+"("             { lexeme();}//return WHILE; }
+ 
+")"             { lexeme();}//return WHILE; }
+ 
+
+ 
+";"             { lexeme();}//return WHILE; }
+
+{D}*                    { lexeme(); }//return NUMBER; }
+{L}({L}|{D})*           { lexeme();} //return IDENTIFIER; }
+0[xX]{H}+{IS}?          { lexeme();} //return INT; }
+"&&"                    { lexeme();} //return AND_OP; }
+"||"                    { lexeme();} //return OR_OP; }
+"<="                    { lexeme(); }//return LE_OP; }
+">="                    { lexeme(); }//return GE_OP;}
+"=="                    { lexeme(); }//return EQ_OP; }
+"!="                    { lexeme(); }//return NE_OP; }
+" "			{}
+.                       { fprintf(stderr,"\tERREUR : Lexeme inconnu a la ligne %d. Il s'agit de %s et comporte %d lettre(s)\n",lineno,yytext,yyleng);
+        error=true;}
+
+
 %%
 
+int main(){
+        printf("Debut de l'analyse lexicale :\n");
+        yylex();
+        printf("Fin de l'analyse !\n");
+        printf("Resultat :\n");
+        if(error){
+                printf("\t-- Echec : Certains lexemes ne font pas partie du lexique du langage ! --\n");
+        }
+        else{
+                printf("\t-- Succes ! --\n");
+        }
+        return EXIT_SUCCESS;
+}
+
+void lexeme(){
+        printf("\tLexeme '%s' trouve a la ligne %d\n",yytext,lineno);
+}
+ 
+
+int yywrap(){
+        printf("\tFin de fichier detecte !\n");
+        return 1;
+}
