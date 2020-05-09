@@ -29,6 +29,7 @@ IS                      (u|U|l|L)*
 "void"                  { printf("void.\n"); return VOID; }
 "while"                 { printf("while.\n"); return WHILE; }
 
+{D}*                    { printf("number.\n"); return NUMBER; }
 {L}({L}|{D})*           { printf("identifier.\n"); return IDENTIFIER; }
 0[xX]{H}+{IS}?          { printf("int.\n"); return INT; }
 "&&"                    { printf("and operation.\n"); return AND_OP; }

@@ -2,6 +2,7 @@
 %token PTR_OP LE_OP GE_OP EQ_OP NE_OP
 %token AND_OP OR_OP
 %token EXTERN
+%token NUMBER
 %token INT VOID
 %token STRUCT 
 %token IF ELSE WHILE FOR RETURN
