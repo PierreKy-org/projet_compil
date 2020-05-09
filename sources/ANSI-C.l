@@ -44,8 +44,9 @@ bool error=false;
 "("             { lexeme();}//return WHILE; }
  
 ")"             { lexeme();}//return WHILE; }
- 
-
+"{"		{ lexeme();}
+"}"		{ lexeme();}
+"\n"            { }
  
 ";"             { lexeme();}//return WHILE; }
 
@@ -58,7 +59,7 @@ bool error=false;
 ">="                    { lexeme(); }//return GE_OP;}
 "=="                    { lexeme(); }//return EQ_OP; }
 "!="                    { lexeme(); }//return NE_OP; }
-" "			{}
+" "|"\t" 		{}
 .                       { fprintf(stderr,"\tERREUR : Lexeme inconnu a la ligne %d. Il s'agit de %s et comporte %d lettre(s)\n",lineno,yytext,yyleng);
         error=true;}
 
