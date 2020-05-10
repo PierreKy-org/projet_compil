@@ -12,9 +12,8 @@ extern bool error_lexical;
 
 
 %token IDENTIFIER CONSTANT SIZEOF
-%token LE_OP GE_OP EQ_OP NE_OP
+%token LE_OP GE_OP EQ_OP
 %token L_OP G_OP
-%token AND_OP OR_OP
 %token EXTERN
 %token NUMBER
 %token INT VOID
@@ -22,21 +21,21 @@ extern bool error_lexical;
 %token IF ELSE WHILE FOR RETURN
 %token COMMENTARY
 %token ADRESSE PTR_OP
-%token PLUS MOINS ETOILE SLASH
-%token PARENTHESE_GAUCHE PARENTHESE_DROITE ACCOLADE_GAUCHE ACCOLADE_DROITE  
+%token ACCOLADE_GAUCHE ACCOLADE_DROITE  
 %token AFFECTATION VIRGULE POINT_VIRGULE
 %token CHEVRON_L CHEVRON_R
-%start program
+
 
 %left                   PLUS        	     MOINS 
 %left                   ETOILE      	     SLASH   
 %left                   AND_OP         
 %left                   OR_OP       	     NE_OP     
-%right                  PARENTHESE_GAUCHE    PARENTHESE_DROITE     
+%right                  PARENTHESE_GAUCHE    PARENTHESE_DROITE 
+%start program    
 %%
 
 primary_expression
-        : IDENTIFIER
+        : IDENTIFIER 
         | CONSTANT
         | '(' expression ')'
         ;
