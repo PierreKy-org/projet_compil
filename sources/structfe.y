@@ -37,20 +37,20 @@ extern bool error_lexical;
 primary_expression
         : IDENTIFIER 
         | CONSTANT
-        | '(' expression ')'
+        | PARENTHESE_GAUCHE expression PARENTHESE_DROITE
         ;
 
 postfix_expression
         : primary_expression
-        | postfix_expression '(' ')'
-        | postfix_expression '(' argument_expression_list ')'
+        | postfix_expression PARENTHESE_GAUCHE PARENTHESE_DROITE
+        | postfix_expression PARENTHESE_GAUCHE argument_expression_list PARENTHESE_DROITE
         | postfix_expression '.' IDENTIFIER
         | postfix_expression PTR_OP IDENTIFIER
         ;
 
 argument_expression_list
         : expression
-        | argument_expression_list ',' expression
+        | argument_expression_list VIRGULE expression
         ;
 
 unary_expression
@@ -60,27 +60,27 @@ unary_expression
         ;
 
 unary_operator
-        : '&'
-        | '*'
-        | '-'
+        : ADRESSE
+        | ETOILE
+        | MOINS
         ;
 
 multiplicative_expression
         : unary_expression
-        | multiplicative_expression '*' unary_expression
-        | multiplicative_expression '/' unary_expression
+        | multiplicative_expression ETOILE unary_expression
+        | multiplicative_expression SLASH unary_expression
         ;
 
 additive_expression
         : multiplicative_expression
-        | additive_expression '+' multiplicative_expression
-        | additive_expression '-' multiplicative_expression
+        | additive_expression PLUS multiplicative_expression
+        | additive_expression MOINS multiplicative_expression
         ;
 
 relational_expression
         : additive_expression
-        | relational_expression '<' additive_expression
-        | relational_expression '>' additive_expression
+        | relational_expression CHEVRON_L additive_expression
+        | relational_expression CHEVRON_R additive_expression
         | relational_expression LE_OP additive_expression
         | relational_expression GE_OP additive_expression
         ;
@@ -103,12 +103,12 @@ logical_or_expression
 
 expression
         : logical_or_expression
-        | unary_expression '=' expression
+        | unary_expression AFFECTATION expression
         ;
 
 declaration
-        : declaration_specifiers declarator ';'
-        | struct_specifier ';'
+        : declaration_specifiers declarator POINT_VIRGULE
+        | struct_specifier POINT_VIRGULE
         ;
 
 declaration_specifiers
@@ -123,8 +123,8 @@ type_specifier
         ;
 
 struct_specifier
-        : STRUCT IDENTIFIER '{' struct_declaration_list '}'
-        | STRUCT '{' struct_declaration_list '}'
+        : STRUCT IDENTIFIER ACCOLADE_GAUCHE struct_declaration_list ACCOLADE_DROITE
+        | STRUCT ACCOLADE_GAUCHE struct_declaration_list ACCOLADE_DROITE
         | STRUCT IDENTIFIER
         ;
 
@@ -134,24 +134,24 @@ struct_declaration_list
         ;
 
 struct_declaration
-        : type_specifier declarator ';'
+        : type_specifier declarator POINT_VIRGULE
         ;
 
 declarator
-        : '*' direct_declarator
+        : ETOILE direct_declarator
         | direct_declarator
         ;
 
 direct_declarator
         : IDENTIFIER
-        | '(' declarator ')'
-        | direct_declarator '(' parameter_list ')'
-        | direct_declarator '(' ')'
+        | PARENTHESE_GAUCHE declarator ACCOLADE_DROITE
+        | direct_declarator PARENTHESE_GAUCHE parameter_list ACCOLADE_DROITE
+        | direct_declarator PARENTHESE_GAUCHE ACCOLADE_DROITE
         ;
 
 parameter_list
         : parameter_declaration
-        | parameter_list ',' parameter_declaration
+        | parameter_list VIRGULE parameter_declaration
         ;
 
 parameter_declaration
@@ -167,10 +167,10 @@ statement
         ;
 
 compound_statement
-        : '{' '}'
-        | '{' statement_list '}'
-        | '{' declaration_list '}'
-        | '{' declaration_list statement_list '}'
+        : ACCOLADE_GAUCHE ACCOLADE_DROITE
+        | ACCOLADE_GAUCHE statement_list ACCOLADE_DROITE
+        | ACCOLADE_GAUCHE declaration_list ACCOLADE_DROITE
+        | ACCOLADE_GAUCHE declaration_list statement_list ACCOLADE_DROITE
         ;
 
 declaration_list
@@ -184,27 +184,27 @@ statement_list
         ;
 
 expression_statement
-        : ';'
-        | expression ';'
+        : POINT_VIRGULE
+        | expression POINT_VIRGULE
         ;
 
 selection_statement
-        : IF '(' expression ')' statement
-        | IF '(' expression ')' statement ELSE statement
+        : IF PARENTHESE_GAUCHE expression PARENTHESE_DROITE statement
+        | IF PARENTHESE_GAUCHE expression PARENTHESE_DROITE statement ELSE statement
         ;
 
 iteration_statement
-        : WHILE '(' expression ')' statement
-        | FOR '(' expression_statement expression_statement expression ')' statement
+        : WHILE PARENTHESE_GAUCHE expression PARENTHESE_DROITE statement
+        | FOR PARENTHESE_GAUCHE expression_statement expression_statement expression PARENTHESE_DROITE statement
         ;
 
 jump_statement
-        : RETURN ';'
-        | RETURN expression ';'
+        : RETURN POINT_VIRGULE
+        | RETURN expression POINT_VIRGULE
         ;
 
 program
-        : external_declaration
+        : external_declaration { printf("On est dans le programme");}
         | program external_declaration
         ;
 
