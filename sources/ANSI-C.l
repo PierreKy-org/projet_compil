@@ -17,54 +17,53 @@ bool error=false;
 %}
 
 %%
-\/\*.*\*\/              { lexeme();} //return COMMENTARY; }
+\/\*.*\*\/              { lexeme(); return COMMENTARY; }
+{D}*                    { lexeme(); return NUMBER; }
+{L}({L}|{D})*           { lexeme(); return IDENTIFIER; }
+0[xX]{H}+{IS}?          { lexeme(); return INT; }
 
-"const"                 { lexeme(); }//return CONSTANT; }
-"else"                  { lexeme(); }//return ELSE; }
-"extern"                { lexeme(); }//return EXTERN; }
-"for"                   { lexeme(); }//return FOR; }
-"if"                    { lexeme(); }//return IF; }
-"int"                   { lexeme(); }//return INT; }
-"return"                { lexeme(); }//return RETURN; }
-"sizeof"                { lexeme(); }//return SIZEOF; }
-"struct"                { lexeme(); }//return STRUCT; }
-"void"                  { lexeme();}// return VOID; }
-"while"                 { lexeme();} //return WHILE; }
+"const"                 { lexeme(); return CONSTANT; }
+"else"                  { lexeme(); return ELSE; }
+"extern"                { lexeme(); return EXTERN; }
+"for"                   { lexeme(); return FOR; }
+"if"                    { lexeme(); return IF; }
+"int"                   { lexeme(); return INT; }
+"return"                { lexeme(); return RETURN; }
+"sizeof"                { lexeme(); return SIZEOF; }
+"struct"                { lexeme(); return STRUCT; }
+"void"                  { lexeme(); return VOID; }
+"while"                 { lexeme(); return WHILE; }
 
-"="             { lexeme(); }//return WHILE; }
- 
-"+"             { lexeme(); }//return WHILE; }
- 
-"-"             { lexeme(); }//return WHILE; }
- 
-"*"             { lexeme(); }//return WHILE; }
- 
-"/"             { lexeme();}//return WHILE; }
- 
-"("             { lexeme();}//return WHILE; }
- 
-")"             { lexeme();}//return WHILE; }
-"{"		{ lexeme();}
-"}"		{ lexeme();}
-"\n"            { lineno++;}
- 
-";"             { lexeme();}//return WHILE; }
-","		{ lexeme();}//return VIRGULE;}
-{D}*                    { lexeme(); }//return NUMBER; }
-{L}({L}|{D})*           { lexeme();} //return IDENTIFIER; }
-0[xX]{H}+{IS}?          { lexeme();} //return INT; }
-"&&"                    { lexeme();} //return AND_OP; }
-"&"			{ lexeme();} //return ADRESSE;}
-"||"                    { lexeme();} //return OR_OP; }
-"<"			{ lexeme();} //return L_OP;}
-">"			{ lexeme();} //reutrn G_OP;}
-"<="                    { lexeme(); }//return LE_OP; }
-">="                    { lexeme(); }//return GE_OP;}
-"=="                    { lexeme(); }//return EQ_OP; }
-"!="                    { lexeme(); }//return NE_OP; }
-" "|"\t" 		{}
-.                       { fprintf(stderr,"\tERREUR : Lexeme inconnu a la ligne %d. Il s'agit de %s et comporte %d lettre(s)\n",lineno,yytext,yyleng);
-        error=true;}
+"+"                     { lexeme(); return PLUS; }
+"-"                     { lexeme(); return MOINS; }
+"*"                     { lexeme(); return ETOILE; }
+"/"                     { lexeme(); return SLASH; }
+
+"("                     { lexeme(); return PARENTHESE_GAUCHE; }
+")"                     { lexeme(); return PARENTHESE_DROITE; }
+"{"	                	{ lexeme(); return ACCOLADE_GAUCHE;}
+"}"	                   	{ lexeme(); return ACCOLADE_DROITE;} 
+
+"="                     { lexeme(); return AFFECTATION; }
+","		                { lexeme(); return VIRGULE;}
+";"                     { lexeme(); return POINT_VIRGULE; }
+
+"&&"                    { lexeme(); return AND_OP; }
+"||"                    { lexeme(); return OR_OP; }
+"<"			            { lexeme(); return L_OP;}
+">"			            { lexeme(); return G_OP;}
+"<="                    { lexeme(); return LE_OP; }
+">="                    { lexeme(); return GE_OP;}
+"=="                    { lexeme(); return EQ_OP; }
+"!="                    { lexeme(); return NE_OP; }
+"&"			            { lexeme(); return ADRESSE;}
+
+" "|"\t" 		        {}
+"\n"                    { lineno++;}
+.                       { 
+                            fprintf(stderr,"\tERREUR : Lexeme inconnu a la ligne %d. Il s'agit de %s et comporte %d lettre(s)\n",lineno,yytext,yyleng);
+                            error=true;
+                            }
 
 
 %%
