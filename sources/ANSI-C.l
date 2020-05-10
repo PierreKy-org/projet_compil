@@ -46,15 +46,18 @@ bool error=false;
 ")"             { lexeme();}//return WHILE; }
 "{"		{ lexeme();}
 "}"		{ lexeme();}
-"\n"            { }
+"\n"            { lineno++;}
  
 ";"             { lexeme();}//return WHILE; }
-
+","		{ lexeme();}//return VIRGULE;}
 {D}*                    { lexeme(); }//return NUMBER; }
 {L}({L}|{D})*           { lexeme();} //return IDENTIFIER; }
 0[xX]{H}+{IS}?          { lexeme();} //return INT; }
 "&&"                    { lexeme();} //return AND_OP; }
+"&"			{ lexeme();} //return ADRESSE;}
 "||"                    { lexeme();} //return OR_OP; }
+"<"			{ lexeme();} //return L_OP;}
+">"			{ lexeme();} //reutrn G_OP;}
 "<="                    { lexeme(); }//return LE_OP; }
 ">="                    { lexeme(); }//return GE_OP;}
 "=="                    { lexeme(); }//return EQ_OP; }
