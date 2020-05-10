@@ -10,84 +10,70 @@ IS                      (u|U|l|L)*
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-void lexeme(void);
+#include "y.tab.h"
+int yylex(void);
+void yyerror(char*);
 unsigned int lineno=1;
-bool error=false;
+bool error_lexical=false;
  
 %}
 
+
+%option noyywrap
+
 %%
-\/\*.*\*\/              { lexeme(); return COMMENTARY; }
-{D}*                    { lexeme(); return NUMBER; }
-{L}({L}|{D})*           { lexeme(); return IDENTIFIER; }
-0[xX]{H}+{IS}?          { lexeme(); return INT; }
+\/\*.*\*\/              { return COMMENTARY; }
 
-"const"                 { lexeme(); return CONSTANT; }
-"else"                  { lexeme(); return ELSE; }
-"extern"                { lexeme(); return EXTERN; }
-"for"                   { lexeme(); return FOR; }
-"if"                    { lexeme(); return IF; }
-"int"                   { lexeme(); return INT; }
-"return"                { lexeme(); return RETURN; }
-"sizeof"                { lexeme(); return SIZEOF; }
-"struct"                { lexeme(); return STRUCT; }
-"void"                  { lexeme(); return VOID; }
-"while"                 { lexeme(); return WHILE; }
 
-"+"                     { lexeme(); return PLUS; }
-"-"                     { lexeme(); return MOINS; }
-"*"                     { lexeme(); return ETOILE; }
-"/"                     { lexeme(); return SLASH; }
+"const"                 { return CONSTANT; }
+"else"                  { return ELSE; }
+"extern"                { return EXTERN; }
+"for"                   { return FOR; }
+"if"                    { return IF; }
+"int"                   { return INT; }
+"return"                { return RETURN; }
+"sizeof"                { return SIZEOF; }
+"struct"                { return STRUCT; }
+"void"                  { return VOID; }
+"while"                 { return WHILE; }
 
-"("                     { lexeme(); return PARENTHESE_GAUCHE; }
-")"                     { lexeme(); return PARENTHESE_DROITE; }
-"{"	                	{ lexeme(); return ACCOLADE_GAUCHE;}
-"}"	                   	{ lexeme(); return ACCOLADE_DROITE;} 
+"+"                     { return PLUS; }
+"-"                     { return MOINS; }
+"*"                     { return ETOILE; }
+"/"                     { return SLASH; }
 
-"="                     { lexeme(); return AFFECTATION; }
-","		                { lexeme(); return VIRGULE;}
-";"                     { lexeme(); return POINT_VIRGULE; }
+"("                     { return PARENTHESE_GAUCHE; }
+")"                     { return PARENTHESE_DROITE; }
+"{"	                { return ACCOLADE_GAUCHE;}
+"}"	                { return ACCOLADE_DROITE;} 
 
-"&&"                    { lexeme(); return AND_OP; }
-"||"                    { lexeme(); return OR_OP; }
-"<"			            { lexeme(); return L_OP;}
-">"			            { lexeme(); return G_OP;}
-"<="                    { lexeme(); return LE_OP; }
-">="                    { lexeme(); return GE_OP;}
-"=="                    { lexeme(); return EQ_OP; }
-"!="                    { lexeme(); return NE_OP; }
-"&"			            { lexeme(); return ADRESSE;}
+"="                     { return AFFECTATION; }
+","		        { return VIRGULE;}
+";"                     { return POINT_VIRGULE; }
+
+"&&"                    { return AND_OP; }
+"||"                    { return OR_OP; }
+"<<"			{  return CHEVRON_L;}
+">>"			{  return CHEVRON_R;}
+"<"			{  return L_OP;}
+">"			{  return G_OP;}
+"<="                    {  return LE_OP; }
+">="                    {  return GE_OP;}
+"=="                    {  return EQ_OP; }
+"!="                    {  return NE_OP; }
+"&"			{  return ADRESSE;}
+
+{D}*                    { return NUMBER; }
+{L}({L}|{D})*           { return IDENTIFIER; }
+0[xX]{H}+{IS}?          { return INT; }
 
 " "|"\t" 		        {}
 "\n"                    { lineno++;}
-.                       { 
-                            fprintf(stderr,"\tERREUR : Lexeme inconnu a la ligne %d. Il s'agit de %s et comporte %d lettre(s)\n",lineno,yytext,yyleng);
-                            error=true;
+.                       { fprintf(stderr,"\tERREUR : Lexeme inconnu a la ligne %d. Il s'agit de %s et comporte %d lettre(s)\n",lineno,yytext,yyleng);
+			 error_lexical=true;
+			 return yytext[0];
                             }
 
 
 %%
 
-int main(){
-        printf("Debut de l'analyse lexicale :\n");
-        yylex();
-        printf("Fin de l'analyse !\n");
-        printf("Resultat :\n");
-        if(error){
-                printf("\t-- Echec : Certains lexemes ne font pas partie du lexique du langage ! --\n");
-        }
-        else{
-                printf("\t-- Succes ! --\n");
-        }
-        return EXIT_SUCCESS;
-}
-
-void lexeme(){
-        printf("\tLexeme '%s' trouve a la ligne %d\n",yytext,lineno);
-}
- 
-
-int yywrap(){
-        printf("\tFin de fichier detecte !\n");
-        return 1;
-}

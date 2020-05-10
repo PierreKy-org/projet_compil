@@ -1,3 +1,16 @@
+%{
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <string.h>
+int yylex(void);
+void yyerror(char*);
+bool error_syntaxical=false;
+extern unsigned int lineno;
+extern bool error_lexical;
+%}
+
+
 %token IDENTIFIER CONSTANT SIZEOF
 %token LE_OP GE_OP EQ_OP NE_OP
 %token L_OP G_OP
@@ -12,7 +25,14 @@
 %token PLUS MOINS ETOILE SLASH
 %token PARENTHESE_GAUCHE PARENTHESE_DROITE ACCOLADE_GAUCHE ACCOLADE_DROITE  
 %token AFFECTATION VIRGULE POINT_VIRGULE
+%token CHEVRON_L CHEVRON_R
 %start program
+
+%left                   PLUS        	     MOINS 
+%left                   ETOILE      	     SLASH   
+%left                   AND_OP         
+%left                   OR_OP       	     NE_OP     
+%right                  PARENTHESE_GAUCHE    PARENTHESE_DROITE     
 %%
 
 primary_expression
@@ -199,11 +219,27 @@ function_definition
         ;
 
 %%
-void yyerror( char *s ) {
-exit(1);
+int main(void){
+        printf("Debut de l'analyse syntaxique :\n");
+        yyparse();
+        printf("Fin de l'analyse !\n");
+        printf("Resultat :\n");
+        if(error_lexical){
+                printf("\t-- Echec : Certains lexemes ne font pas partie du lexique du langage ! --\n");
+                printf("\t-- Echec a l'analyse lexicale --\n");
+        }
+        else{
+                printf("\t-- Succes a l'analyse lexicale ! --\n");
+        }
+        if(error_syntaxical){
+                printf("\t-- Echec : Certaines phrases sont syntaxiquement incorrectes ! --\n");
+                printf("\t-- Echec a l'analyse syntaxique --\n");
+        }
+        else{
+                printf("\t-- Succes a l'analyse syntaxique ! --\n");
+        }
+        return EXIT_SUCCESS;
 }
-int yywrap(){return 1;}
-int main(){
-while (1)
-yyparse();
+void yyerror(char *s) {
+        fprintf(stderr, "Erreur de syntaxe a la ligne %d: %s\n", lineno, s);
 }
