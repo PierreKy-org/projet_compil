@@ -144,9 +144,9 @@ declarator
 
 direct_declarator
         : IDENTIFIER
-        | PARENTHESE_GAUCHE declarator ACCOLADE_DROITE
-        | direct_declarator PARENTHESE_GAUCHE parameter_list ACCOLADE_DROITE
-        | direct_declarator PARENTHESE_GAUCHE ACCOLADE_DROITE
+        | PARENTHESE_GAUCHE declarator PARENTHESE_DROITE
+        | direct_declarator PARENTHESE_GAUCHE parameter_list PARENTHESE_DROITE
+        | direct_declarator PARENTHESE_GAUCHE PARENTHESE_DROITE  
         ;
 
 parameter_list
@@ -241,4 +241,5 @@ int main(void){
 }
 void yyerror(char *s) {
         fprintf(stderr, "Erreur de syntaxe a la ligne %d: %s\n", lineno, s);
+		error_syntaxical = true;
 }

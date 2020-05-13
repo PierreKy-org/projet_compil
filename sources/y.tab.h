@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,6 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
+
 #ifndef YY_YY_Y_TAB_H_INCLUDED
 # define YY_YY_Y_TAB_H_INCLUDED
 /* Debug traces.  */
@@ -48,50 +52,80 @@ extern int yydebug;
     IDENTIFIER = 258,
     CONSTANT = 259,
     SIZEOF = 260,
-    PTR_OP = 261,
-    LE_OP = 262,
-    GE_OP = 263,
-    EQ_OP = 264,
-    NE_OP = 265,
-    AND_OP = 266,
-    OR_OP = 267,
-    EXTERN = 268,
-    NUMBER = 269,
-    INT = 270,
-    VOID = 271,
-    STRUCT = 272,
-    IF = 273,
-    ELSE = 274,
-    WHILE = 275,
-    FOR = 276,
-    RETURN = 277,
-    COMMENTARY = 278,
-    ENDSENTENCE = 279
+    LE_OP = 261,
+    GE_OP = 262,
+    EQ_OP = 263,
+    L_OP = 264,
+    G_OP = 265,
+    EXTERN = 266,
+    NUMBER = 267,
+    INT = 268,
+    VOID = 269,
+    STRUCT = 270,
+    IF = 271,
+    ELSE = 272,
+    WHILE = 273,
+    FOR = 274,
+    RETURN = 275,
+    COMMENTARY = 276,
+    ADRESSE = 277,
+    PTR_OP = 278,
+    ACCOLADE_GAUCHE = 279,
+    ACCOLADE_DROITE = 280,
+    AFFECTATION = 281,
+    VIRGULE = 282,
+    POINT_VIRGULE = 283,
+    CHEVRON_L = 284,
+    CHEVRON_R = 285,
+    PLUS = 286,
+    MOINS = 287,
+    ETOILE = 288,
+    SLASH = 289,
+    AND_OP = 290,
+    OR_OP = 291,
+    NE_OP = 292,
+    PARENTHESE_GAUCHE = 293,
+    PARENTHESE_DROITE = 294
   };
 #endif
 /* Tokens.  */
 #define IDENTIFIER 258
 #define CONSTANT 259
 #define SIZEOF 260
-#define PTR_OP 261
-#define LE_OP 262
-#define GE_OP 263
-#define EQ_OP 264
-#define NE_OP 265
-#define AND_OP 266
-#define OR_OP 267
-#define EXTERN 268
-#define NUMBER 269
-#define INT 270
-#define VOID 271
-#define STRUCT 272
-#define IF 273
-#define ELSE 274
-#define WHILE 275
-#define FOR 276
-#define RETURN 277
-#define COMMENTARY 278
-#define ENDSENTENCE 279
+#define LE_OP 261
+#define GE_OP 262
+#define EQ_OP 263
+#define L_OP 264
+#define G_OP 265
+#define EXTERN 266
+#define NUMBER 267
+#define INT 268
+#define VOID 269
+#define STRUCT 270
+#define IF 271
+#define ELSE 272
+#define WHILE 273
+#define FOR 274
+#define RETURN 275
+#define COMMENTARY 276
+#define ADRESSE 277
+#define PTR_OP 278
+#define ACCOLADE_GAUCHE 279
+#define ACCOLADE_DROITE 280
+#define AFFECTATION 281
+#define VIRGULE 282
+#define POINT_VIRGULE 283
+#define CHEVRON_L 284
+#define CHEVRON_R 285
+#define PLUS 286
+#define MOINS 287
+#define ETOILE 288
+#define SLASH 289
+#define AND_OP 290
+#define OR_OP 291
+#define NE_OP 292
+#define PARENTHESE_GAUCHE 293
+#define PARENTHESE_DROITE 294
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
