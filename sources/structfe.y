@@ -35,7 +35,8 @@ extern bool error_lexical;
 %%
 
 primary_expression
-        : IDENTIFIER 
+        : IDENTIFIER
+		| NUMBER
         | CONSTANT
         | PARENTHESE_GAUCHE expression PARENTHESE_DROITE
         ;
@@ -161,11 +162,17 @@ parameter_declaration
 statement
         : compound_statement
         | expression_statement
+		| affectation_statement
         | selection_statement
         | iteration_statement
         | jump_statement 
         ;
 
+affectation_statement
+		: IDENTIFIER AFFECTATION NUMBER POINT_VIRGULE
+		| IDENTIFIER AFFECTATION MOINS NUMBER POINT_VIRGULE
+		;
+		
 compound_statement
         : ACCOLADE_GAUCHE ACCOLADE_DROITE
         | ACCOLADE_GAUCHE statement_list ACCOLADE_DROITE
@@ -204,7 +211,7 @@ jump_statement
         ;
 
 program
-        : external_declaration { printf("On est dans le programme");}
+        : external_declaration 
         | program external_declaration
         ;
 
