@@ -1,0 +1,8 @@
+for( i = 0; i < 1000; i = i+1 )
+while ( i < 10)
+i = malloc(sizeof(int));
+if ( i+1 < j+0 ) printd(i); else printd(j);
+fact=&foo;
+k=&a;
+/* Description d'une liste chainee */
+
