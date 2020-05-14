@@ -84,6 +84,8 @@ relational_expression
         | relational_expression CHEVRON_R additive_expression
         | relational_expression LE_OP additive_expression
         | relational_expression GE_OP additive_expression
+        | relational_expression L_OP additive_expression
+        | relational_expression G_OP additive_expression
         ;
 
 equality_expression
@@ -162,17 +164,18 @@ parameter_declaration
 statement
         : compound_statement
         | expression_statement
-		| affectation_statement
+	| affectation_statement
         | selection_statement
         | iteration_statement
         | jump_statement 
         ;
 
 affectation_statement
-		: IDENTIFIER AFFECTATION NUMBER POINT_VIRGULE
-		| IDENTIFIER AFFECTATION MOINS NUMBER POINT_VIRGULE
-		;
-		
+	: IDENTIFIER AFFECTATION NUMBER POINT_VIRGULE
+	| IDENTIFIER AFFECTATION MOINS NUMBER POINT_VIRGULE
+	| IDENTIFIER AFFECTATION additive_expression POINT_VIRGULE
+	;
+
 compound_statement
         : ACCOLADE_GAUCHE ACCOLADE_DROITE
         | ACCOLADE_GAUCHE statement_list ACCOLADE_DROITE
