@@ -12,7 +12,7 @@ struct liste *affiche(struct liste *p) {
  return p;
 }
 
-/* Fonctions externes utilisées */
+/* Fonctions externes utilisï¿½es */
 extern void *malloc(int size);
 extern void free(void *ptr);
 
