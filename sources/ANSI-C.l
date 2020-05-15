@@ -22,7 +22,7 @@ bool error_lexical=false;
 %option noyywrap
 
 %%
-\/\*.*\*\/              { return COMMENTARY; }
+\/\*.*\*\/              {}
 
 
 "const"                 { return CONSTANT; }
@@ -37,6 +37,7 @@ bool error_lexical=false;
 "void"                  { return VOID; }
 "while"                 { return WHILE; }
 
+"->"					{ return FLECHE;}
 "+"                     { return PLUS; }
 "-"                     { return MOINS; }
 "*"                     { return ETOILE; }

@@ -67,9 +67,9 @@ extern int yydebug;
     WHILE = 273,
     FOR = 274,
     RETURN = 275,
-    COMMENTARY = 276,
-    ADRESSE = 277,
-    PTR_OP = 278,
+    ADRESSE = 276,
+    PTR_OP = 277,
+    FLECHE = 278,
     ACCOLADE_GAUCHE = 279,
     ACCOLADE_DROITE = 280,
     AFFECTATION = 281,
@@ -107,9 +107,9 @@ extern int yydebug;
 #define WHILE 273
 #define FOR 274
 #define RETURN 275
-#define COMMENTARY 276
-#define ADRESSE 277
-#define PTR_OP 278
+#define ADRESSE 276
+#define PTR_OP 277
+#define FLECHE 278
 #define ACCOLADE_GAUCHE 279
 #define ACCOLADE_DROITE 280
 #define AFFECTATION 281

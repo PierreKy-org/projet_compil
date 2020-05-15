@@ -19,8 +19,7 @@ extern bool error_lexical;
 %token INT VOID
 %token STRUCT 
 %token IF ELSE WHILE FOR RETURN
-%token COMMENTARY
-%token ADRESSE PTR_OP
+%token ADRESSE PTR_OP FLECHE
 %token ACCOLADE_GAUCHE ACCOLADE_DROITE  
 %token AFFECTATION VIRGULE POINT_VIRGULE
 %token CHEVRON_L CHEVRON_R
@@ -36,7 +35,7 @@ extern bool error_lexical;
 
 primary_expression
         : IDENTIFIER
-		| NUMBER
+	| NUMBER
         | CONSTANT
         | PARENTHESE_GAUCHE expression PARENTHESE_DROITE
         ;
@@ -57,7 +56,9 @@ argument_expression_list
 unary_expression
         : postfix_expression
         | unary_operator unary_expression
-        | SIZEOF unary_expression
+        | IDENTIFIER FLECHE IDENTIFIER
+        | SIZEOF PARENTHESE_GAUCHE type_specifier PARENTHESE_DROITE
+        | SIZEOF PARENTHESE_GAUCHE IDENTIFIER PARENTHESE_DROITE
         ;
 
 unary_operator
@@ -76,6 +77,7 @@ additive_expression
         : multiplicative_expression
         | additive_expression PLUS multiplicative_expression
         | additive_expression MOINS multiplicative_expression
+        | additive_expression PLUS PLUS
         ;
 
 relational_expression
@@ -106,7 +108,8 @@ logical_or_expression
 
 expression
         : logical_or_expression
-        | unary_expression AFFECTATION expression
+        | unary_expression AFFECTATION expression 
+        | unary_expression AFFECTATION direct_declarator 
         ;
 
 declaration
@@ -125,10 +128,11 @@ type_specifier
         | struct_specifier
         ;
 
+
 struct_specifier
         : STRUCT IDENTIFIER ACCOLADE_GAUCHE struct_declaration_list ACCOLADE_DROITE
         | STRUCT ACCOLADE_GAUCHE struct_declaration_list ACCOLADE_DROITE
-        | STRUCT IDENTIFIER
+        | STRUCT IDENTIFIER     
         ;
 
 struct_declaration_list
@@ -159,6 +163,7 @@ parameter_list
 
 parameter_declaration
         : declaration_specifiers declarator
+        | direct_declarator
         ;
 
 statement
@@ -214,7 +219,7 @@ jump_statement
         ;
 
 program
-        : external_declaration 
+        : external_declaration
         | program external_declaration
         ;
 
