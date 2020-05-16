@@ -35,7 +35,7 @@ extern bool error_lexical;
 
 primary_expression
         : IDENTIFIER
-	| NUMBER
+		| NUMBER
         | CONSTANT
         | PARENTHESE_GAUCHE expression PARENTHESE_DROITE
         ;
@@ -169,17 +169,19 @@ parameter_declaration
 statement
         : compound_statement
         | expression_statement
-	| affectation_statement
+		| affectation_statement
         | selection_statement
         | iteration_statement
         | jump_statement 
         ;
 
 affectation_statement
-	: IDENTIFIER AFFECTATION NUMBER POINT_VIRGULE
-	| IDENTIFIER AFFECTATION MOINS NUMBER POINT_VIRGULE
-	| IDENTIFIER AFFECTATION additive_expression POINT_VIRGULE
-	;
+		: IDENTIFIER AFFECTATION affectation_statement
+		| IDENTIFIER POINT_VIRGULE
+		| NUMBER POINT_VIRGULE
+		| MOINS NUMBER POINT_VIRGULE
+		| additive_expression POINT_VIRGULE
+		;
 
 compound_statement
         : ACCOLADE_GAUCHE ACCOLADE_DROITE
